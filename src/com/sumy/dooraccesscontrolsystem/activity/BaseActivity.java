@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
+
 /**
  * 所有 Activity 的基类，封装最常用的 Activity 的操作
  * 
@@ -20,6 +22,8 @@ public abstract class BaseActivity extends Activity {
 
     private SharedPreferences sharedPreferences;
     private Editor editor;
+
+    protected DoorSystem doorSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public abstract class BaseActivity extends Activity {
         editor.putBoolean(KEY_ISFIRST, false);
         // 提交修改信息
         editor.commit();
+
+        doorSystem = DoorSystem.getInstance();
     }
 
     /**
@@ -59,6 +65,18 @@ public abstract class BaseActivity extends Activity {
      */
     protected void startActivity(Class cls) {
         startActivity(new Intent(this, cls));
+    }
+
+    /**
+     * 以回调结果的方式启动一个 Activity
+     * 
+     * @param cls
+     *            需要启动的 Activity 的类名
+     * @param requestCode
+     *            启动时候的请求码
+     */
+    protected void startActivityForResult(Class cls, int requestCode) {
+        startActivityForResult(new Intent(this, cls), requestCode);
     }
 
     /**

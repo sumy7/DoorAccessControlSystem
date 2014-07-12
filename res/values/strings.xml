@@ -11,4 +11,34 @@
     <string name="paperfinish_btn">开始使用</string>
     <string name="paper_ship">跳过>></string>
 
+    <string-array name="admin_function">
+        <item>录入新雇员</item>
+        <item>开门进入</item>
+        <item>备份雇员信息</item>
+        <item>恢复雇员信息</item>
+        <item>经理指纹录入</item>
+        <item>系统设置</item>
+        <item>管理员退出</item>
+        <item>查看考勤信息</item>
+    </string-array>
+
+    <string name="admin_login_dialog">管理员登陆</string>
+    <string name="admin_dialog_name">管理员姓名</string>
+    <string name="admin_dialog_password">管理员密码</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="login_ok">管理员验证成功</string>
+    <string name="photo">拍照</string>
+    <string name="pic">浏览</string>
+    <string name="admin_exit">管理员退出成功</string>
+    <string name="employeeNameEmpty">雇员姓名不能为空</string>
+    <string name="file_write_ok">备份文件写入成功</string>
+    <string name="file_write_fail">备份文件写入失败</string>
+    <string name="file_read_ok">备份文件恢复成功</string>
+    <string name="file_read_fail">备份文件恢复失败</string>
+    <string name="ManagerNameEmpty">请输入经理的姓名</string>
+    <string name="ManagerPinCodeEmpty">请输入手势识别码</string>
+    <string name="ManagerInputOK">经理手势识别录入成功</string>
+    <string name="nfc_text">请将卡靠近背面</string>
+
 </resources>

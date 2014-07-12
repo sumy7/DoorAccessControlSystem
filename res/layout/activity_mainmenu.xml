@@ -7,14 +7,33 @@
     tools:context="com.sumy.dooraccesscontrolsystem.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <GridView
-        android:id="@+id/mainmenu_gridView"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/layout_main"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="15dp"
-        android:numColumns="auto_fit"
-        android:padding="5dip"
-        android:verticalSpacing="50dp" >
-    </GridView>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/mainmenu_gridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="15dp"
+            android:listSelector="@drawable/app_grid_selector"
+            android:numColumns="auto_fit"
+            android:padding="5dip"
+            android:verticalSpacing="50dp" >
+        </GridView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/mainmenu_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_main"
+        android:contentDescription="@string/app_name"
+        android:src="@anim/animation" />
 
 </RelativeLayout>

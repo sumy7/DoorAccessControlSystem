@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15.0px"
+    android:layout_marginRight="15.0px"
+    android:layout_marginTop="62.0px"
+    android:paddingBottom="10.0px"
+    android:paddingTop="21.0px" >
+
+    <EditText
+        android:id="@+id/login_edit_account"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5.0px"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_marginTop="5.0dip"
+        android:background="@drawable/qq_edit_login"
+        android:hint="请输入管理员账号"
+        android:inputType="text"
+        android:maxLength="10"
+        android:paddingLeft="45.0sp"
+        android:saveEnabled="true" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/login_edit_account"
+        android:layout_alignLeft="@+id/login_edit_account"
+        android:layout_alignTop="@+id/login_edit_account"
+        android:layout_marginRight="15.0sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="7.0sp"
+        android:text="账号"
+        android:textColor="#ff3f3f3f"
+        android:textSize="16.0dip" />
+
+    <EditText
+        android:id="@+id/login_edit_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_edit_account"
+        android:layout_alignRight="@+id/login_edit_account"
+        android:layout_below="@+id/login_edit_account"
+        android:layout_marginRight="1.0dip"
+        android:background="@drawable/qq_edit_login"
+        android:hint="请输入管理员密码"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:paddingLeft="45.0sp"
+        android:saveEnabled="true" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/login_edit_pwd"
+        android:layout_alignRight="@+id/TextView01"
+        android:layout_alignTop="@+id/login_edit_pwd"
+        android:gravity="center_vertical"
+        android:paddingLeft="7.0sp"
+        android:text="密码"
+        android:textColor="#ff3f3f3f"
+        android:textSize="16.0dip" />
+
+</RelativeLayout>

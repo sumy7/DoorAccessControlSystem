@@ -2,6 +2,8 @@ package com.sumy.dooraccesscontrolsystem.activity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LayoutAnimationController;
@@ -9,14 +11,23 @@ import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.GridViewAdapter;
 import com.sumy.dooraccesscontrolsystem.entity.GridViewItem;
 
+/**
+ * 主菜单界面
+ * 
+ * @author sumy
+ * 
+ */
 public class MainMenuActivity extends BaseActivity {
 
+    private static int ADMIN_REQUEST_CODE = 233;
     private GridView gridView;
+    private ImageView imageView;
 
     @Override
     protected int getLayoutResID() {
@@ -26,6 +37,10 @@ public class MainMenuActivity extends BaseActivity {
     @Override
     protected void initView() {
         gridView = (GridView) findViewById(R.id.mainmenu_gridView);
+        imageView = (ImageView) findViewById(R.id.mainmenu_imageview);
+        // 停止动画
+        ((AnimationDrawable) imageView.getDrawable()).stop();
+
         ArrayList<GridViewItem> list = new ArrayList<GridViewItem>();
         list.add(new GridViewItem("管理员进入", R.drawable.admin));
         list.add(new GridViewItem("雇员刷卡", R.drawable.card));
@@ -47,6 +62,8 @@ public class MainMenuActivity extends BaseActivity {
                 case 0:
                     // 管理员
                     showToast("管理员访问");
+                    startActivityForResult(AdminActivity.class,
+                            ADMIN_REQUEST_CODE);
                     break;
                 case 1:
                     // 雇员
@@ -72,4 +89,10 @@ public class MainMenuActivity extends BaseActivity {
         animation.start();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADMIN_REQUEST_CODE && resultCode == RESULT_OK) {
+            doorSystem.getDoor().toOpen(imageView);
+        }
+    }
 }

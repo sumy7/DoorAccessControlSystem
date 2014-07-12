@@ -2,7 +2,6 @@ package com.sumy.dooraccesscontrolsystem.activity;
 
 import java.util.ArrayList;
 
-import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -17,6 +16,12 @@ import android.widget.TextView;
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.activity.ActivitySplash.GuiderPageAdapter.PageButtonOption;
 
+/**
+ * 新手引导界面
+ * 
+ * @author sumy
+ * 
+ */
 public class ActivitySplash extends BaseActivity {
 
     private static Class MAIN_CLASS = MainMenuActivity.class;
@@ -26,8 +31,6 @@ public class ActivitySplash extends BaseActivity {
     private ImageView imageView;
     private HorizontalScrollView scrollView;
 
-    private Handler handler;
-
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_splash;
@@ -35,13 +38,6 @@ public class ActivitySplash extends BaseActivity {
 
     @Override
     protected void initView() {
-        // 判断是否第一次启动
-        if (!isFirst()) {
-            // 不是第一次启动，跳过引导
-            startActivity(MAIN_CLASS);
-            finish();
-            return;
-        }
         viewPaper = (ViewPager) findViewById(R.id.viewpager);
         imageView = (ImageView) findViewById(R.id.splash_imageview);
         scrollView = (HorizontalScrollView) findViewById(R.id.splash_scroll);
@@ -119,18 +115,6 @@ public class ActivitySplash extends BaseActivity {
 
             }
         });
-
-        // 创建handler，10秒后自动跳过引导页
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                startActivity(MAIN_CLASS);
-                showToast("自动跳过引导页");
-                finish();
-            }
-        }, 10000);
     }
 
     /**
