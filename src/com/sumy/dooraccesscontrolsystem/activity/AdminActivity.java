@@ -50,6 +50,8 @@ public class AdminActivity extends BaseActivity {
                     int position, long id) {
                 switch (position) {
                 case 0:
+                    // 录入新雇员
+                    startActivity(InputEmployeeActivity.class);
                     break;
                 case 1:
                     // 开门

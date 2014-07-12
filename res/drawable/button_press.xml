@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <gradient
+        android:angle="-90"
+        android:endColor="#EE6700"
+        android:startColor="#FF7F00" />
+    <!-- 描边 -->
+    <stroke
+        android:width="2dp"
+        android:color="#3D4148" />
+
+    <!-- 圆角 -->
+    <corners android:radius="5dp" />
+
+</shape>
+<!--
+1、  solid   
+     描述：内部填充  
+      属性     android:color 填充颜色  
+     
+     
+2、size   
+     描述：size: 大小  
+     属性：  
+     android:width   表示形状的宽度  
+     android:height 表示形状的高度  
+     
+3、gradient  
+          
+      描述： 渐变色  
+        
+       属性：  
+       android:startColor  起始颜色  
+       android:endColor    结束颜色  
+       android:angle       渐变角度(PS：当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍)  
+       android:type       渐变类型(取值：linear、radial、sweep)  
+                            linear  线性渐变，这是默认设置  
+                            radial  放射性渐变，以开始色为中心。  
+                            sweep   扫描线式的渐变。  
+       android:centerColor  渐变中间颜色，即开始颜色与结束颜色之间的颜色  
+       android:useLevel   如果要使用LevelListDrawable对象，就要设置为true。设置为true无渐变。false有渐变色  
+       android:gradientRadius  渐变色半径.当 android:type="radial" 时才使用。单独使用 android:type="radial"会报错。  
+       android:centerX    渐变中心X点坐标的相对位置  
+       android:centerY   渐变中心Y点坐标的相对位置  
+4、stroke  
+     
+    描述: stroke:描边  相当于html中的盒子模型的border  
+             
+   属性：  
+        android:width 描边的宽度  
+        android:color 描边的颜色  
+        android:dashWidth 表示描边的样式是虚线的宽度，  
+                                                             值为0时，表示为实线。值大于0则为虚线。  
+        android:dashGap  表示描边为虚线时，虚线之间的间隔 即“ - - - - ”  
+             
+ 5、corners  
+      
+         描述: corners: 圆角  
+          
+        属性：  
+        android:radius  半径  
+        android:topLeftRadius  左上角半径  
+        android:topRightRadius  右上角半径  
+        注意一下两个属性比较不同：  
+        android:bottomLeftRadius 右下角半径  
+        android:bottomRightRadius 左下角半径  
+ 6、padding  
+               
+          描述：内部边距，即内容与边的距离  
+               
+         属性：  
+        android:left  左内边距  
+        android:top   上内边距  
+        android:right  右内边距  
+        android:bottom 下内边距  
+-->

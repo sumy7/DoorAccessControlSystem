@@ -7,19 +7,40 @@ package com.sumy.dooraccesscontrolsystem.entity;
  * 
  */
 public class Employee extends User {
-	private String cardid;
+    private String cardid;
+    private String photo;
+    private boolean hasCard;
 
-	public Employee(String userid, String name, String cardid) {
-		super(userid, name);
-		this.cardid = cardid;
-	}
+    public Employee(String userid, String name, String cardid, String photo,
+            boolean hascard) {
+        super(userid, name);
+        this.cardid = cardid;
+        this.photo = photo;
+        this.hasCard = hascard;
+    }
 
-	public String getCardid() {
-		return cardid;
-	}
+    public String getCardid() {
+        return cardid;
+    }
 
-	public void setCardid(String cardid) {
-		this.cardid = cardid;
-	}
+    public void setCardid(String cardid) {
+        this.cardid = cardid;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public boolean isHasCard() {
+        return this.hasCard;
+    }
+
+    public void makeCard() {
+        this.hasCard = true;
+    }
 
 }

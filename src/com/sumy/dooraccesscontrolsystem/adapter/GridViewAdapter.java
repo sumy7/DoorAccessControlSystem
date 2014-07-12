@@ -12,6 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * 适配菜单界面的菜单列表
+ * 
+ * @author sumy
+ * 
+ */
 public class GridViewAdapter extends AdapterBase<GridViewItem> {
 
     private Typeface tf;

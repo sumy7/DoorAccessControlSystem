@@ -15,6 +15,9 @@ public class Environment {
     private static Date lastLoginDate = null;
     private static Admin loginedAdmin = null;
 
+    private static int currentUserID = 0;
+    private static boolean isinitUserID = false;
+
     public static void setLoginedAdmin(Admin adminuser) {
         if (adminuser != null) {
             isLogined = true;
@@ -27,5 +30,17 @@ public class Environment {
         if (isLogined == false)
             return null;
         return loginedAdmin;
+    }
+
+    public static int getNextUserID() {
+        if (!isinitUserID) {
+            return -1;
+        }
+        currentUserID++;
+        return currentUserID;
+    }
+
+    public static void initUserID() {
+        // TODO 获取最大的编号
     }
 }

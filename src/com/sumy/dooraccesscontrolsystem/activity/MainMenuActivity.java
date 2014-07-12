@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.GridViewAdapter;
+import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
 import com.sumy.dooraccesscontrolsystem.entity.GridViewItem;
 
 /**
@@ -72,6 +73,8 @@ public class MainMenuActivity extends BaseActivity {
                 case 2:
                     // 访客
                     showToast("访客门铃");
+                    DoorSystem.getInstance().getRing()
+                            .toRing(MainMenuActivity.this, R.raw.ring);
                     break;
                 case 3:
                     // 经理
