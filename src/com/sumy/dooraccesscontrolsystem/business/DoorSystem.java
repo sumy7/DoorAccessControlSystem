@@ -2,10 +2,13 @@ package com.sumy.dooraccesscontrolsystem.business;
 
 import java.util.ArrayList;
 
+import android.os.Environment;
+
 import com.sumy.dooraccesscontrolsystem.entity.Admin;
 import com.sumy.dooraccesscontrolsystem.entity.Door;
 import com.sumy.dooraccesscontrolsystem.entity.Ring;
 import com.sumy.dooraccesscontrolsystem.entity.User;
+import com.sumy.dooraccesscontrolsystem.utils.XMLTools;
 import com.sumy.dooraccesscontrolsystem.validate.Validate;
 
 /**
@@ -19,16 +22,22 @@ import com.sumy.dooraccesscontrolsystem.validate.Validate;
 public class DoorSystem {
     private static DoorSystem singleInstance = null; // 单例模式对象
 
+    public static String AUTOSAVE_PATH = Environment
+            .getExternalStorageDirectory() + "/doorsystemautosave.xml";
+
     private ArrayList<User> userlist; // 用户访问列表
     private Door door; // 门
     private Ring ring; // 门铃
 
     private DoorSystem() {
-        userlist = new ArrayList<User>();
+        userlist = XMLTools.readXML(AUTOSAVE_PATH);
+        if (userlist == null) {
+            userlist = new ArrayList<User>();
+            userlist.add(new Admin("0", "admin", "admin"));
+        }
         door = new Door();
         ring = new Ring();
 
-        userlist.add(new Admin("0", "admin", "admin"));
     }
 
     /**
@@ -65,6 +74,10 @@ public class DoorSystem {
 
     public Ring getRing() {
         return ring;
+    }
+
+    public void setUserlist(ArrayList<User> userlist) {
+        this.userlist = userlist;
     }
 
 }

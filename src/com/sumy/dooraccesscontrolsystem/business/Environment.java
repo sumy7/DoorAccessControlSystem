@@ -18,12 +18,17 @@ public class Environment {
     private static int currentUserID = 0;
     private static boolean isinitUserID = false;
 
-    public static void setLoginedAdmin(Admin adminuser) {
+    public static void adminLogin(Admin adminuser) {
         if (adminuser != null) {
             isLogined = true;
             lastLoginDate = new Date(System.currentTimeMillis());
             loginedAdmin = adminuser;
         }
+    }
+
+    public static void adminLogout() {
+        isLogined = false;
+        loginedAdmin = null;
     }
 
     public static Admin getLoginedAdmin() {

@@ -1,10 +1,12 @@
 package com.sumy.dooraccesscontrolsystem.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +16,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.sumy.dooraccesscontrolsystem.R;
+import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
 import com.sumy.dooraccesscontrolsystem.business.Environment;
 import com.sumy.dooraccesscontrolsystem.entity.Admin;
 import com.sumy.dooraccesscontrolsystem.entity.User;
+import com.sumy.dooraccesscontrolsystem.utils.XMLTools;
 import com.sumy.dooraccesscontrolsystem.validate.Validate;
 
 /**
@@ -28,6 +32,9 @@ import com.sumy.dooraccesscontrolsystem.validate.Validate;
 public class AdminActivity extends BaseActivity {
 
     private ListView listView;
+
+    private String path = android.os.Environment.getExternalStorageDirectory()
+            + "/dooraccessusersbackup.xml";
 
     @Override
     protected int getLayoutResID() {
@@ -58,8 +65,57 @@ public class AdminActivity extends BaseActivity {
                     setResult(RESULT_OK);
                     finish();
                     break;
-                }
+                case 2:
+                    // 备份文件
+                    // 保存到XML文件中
+                    Log.i("mytag", path);
+                    boolean result = XMLTools.writeXML(path, DoorSystem
+                            .getInstance().getUserlist());
+                    if (result) {
+                        showToast("备份成功");
+                    } else {
+                        showToast("备份失败");
+                    }
+                    break;
+                case 3:
+                    // 恢复信息
+                    ArrayList<User> list = XMLTools.readXML(path);
+                    if (list != null) {
+                        DoorSystem.getInstance().setUserlist(list);
+                        showToast("恢复成功");
+                    } else {
+                        showToast("恢复失败");
+                    }
+                    break;
 
+                case 4:
+                    // 经理指纹录入
+                    break;
+                case 5:
+                    // 系统设置
+                    break;
+                case 6:
+                    // 管理员退出
+                    AlertDialog.Builder builder = new AlertDialog.Builder(
+                            AdminActivity.this);
+                    builder.setTitle("确定退出？")
+                            .setPositiveButton("确定",
+                                    new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(
+                                                DialogInterface dialog,
+                                                int which) {
+                                            Environment.adminLogout();
+                                            finish();
+                                        }
+
+                                    }).setNegativeButton("取消", null).show();
+                    break;
+                case 7:
+                    // 查看考勤信息
+                    break;
+                }
             }
         });
     }
@@ -106,7 +162,7 @@ public class AdminActivity extends BaseActivity {
                                                     && thisuser.getPassword()
                                                             .equals(password))
                                                 Environment
-                                                        .setLoginedAdmin(thisuser);
+                                                        .adminLogin(thisuser);
                                             return true;
                                         }
                                     }
@@ -130,6 +186,14 @@ public class AdminActivity extends BaseActivity {
                         finish();
                     }
                 }).setCancelable(false).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 自动保存用户列表
+        XMLTools.writeXML(DoorSystem.AUTOSAVE_PATH, DoorSystem.getInstance()
+                .getUserlist());
     }
 
 }

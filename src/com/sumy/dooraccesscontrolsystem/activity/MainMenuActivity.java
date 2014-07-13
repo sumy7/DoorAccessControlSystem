@@ -2,7 +2,9 @@ package com.sumy.dooraccesscontrolsystem.activity;
 
 import java.util.ArrayList;
 
+import android.R.color;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.GridViewAdapter;
 import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
+import com.sumy.dooraccesscontrolsystem.business.Environment;
 import com.sumy.dooraccesscontrolsystem.entity.GridViewItem;
 
 /**
