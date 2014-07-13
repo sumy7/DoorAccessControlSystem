@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#0a1724"
+    android:orientation="vertical" >
+
+    <!-- 头像 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/lock_title_user_photo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@drawable/admin"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/lock_paint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0" >
+
+        <!-- 底端信息布局 -->
+
+        <LinearLayout
+            android:id="@+id/bottom_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editTextManagerName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/edit_manager_name"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btn_lock_nopin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="@string/ok"
+                android:textColor="#464662"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <!-- 画手势矩阵布局 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_info_layout"
+            android:layout_alignParentTop="true"
+            android:background="#60cfcfcf"
+            android:gravity="center" >
+
+            <com.sumy.dooraccesscontrolsystem.view.LockScreenView
+                android:id="@+id/lock_paint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

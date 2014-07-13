@@ -31,6 +31,8 @@ public class MainMenuActivity extends BaseActivity {
 
     private static int ADMIN_REQUEST_CODE = 233;
     private static int EMPLOYEE_REQUEST_CODE = 233333;
+    private static int MANAGER_REQUEST_CODE = 2333;
+
     private GridView gridView;
     private ImageView imageView;
 
@@ -84,7 +86,9 @@ public class MainMenuActivity extends BaseActivity {
                     break;
                 case 3:
                     // 经理
-                    showToast("经理指纹");
+                    showToast("经理手势");
+                    startActivityForResult(ManagerCheckInActivity.class,
+                            MANAGER_REQUEST_CODE);
                     break;
                 }
             }
@@ -128,6 +132,9 @@ public class MainMenuActivity extends BaseActivity {
             doorSystem.getDoor().toOpen(imageView);
         }
         if (requestCode == EMPLOYEE_REQUEST_CODE && resultCode == RESULT_OK) {
+            doorSystem.getDoor().toOpen(imageView);
+        }
+        if (requestCode == MANAGER_REQUEST_CODE && resultCode == RESULT_OK) {
             doorSystem.getDoor().toOpen(imageView);
         }
     }

@@ -70,9 +70,12 @@ public class EmployeeAdapter extends AdapterBase<User> {
                 holder.userImageView.setImageResource(R.drawable.admin);
             }
         } else if (user instanceof Manager) {
-            holder.userTitleTextView.setText("经  理 ID:" + user.getUserid());
+            Manager tmp = (Manager) user;
+            holder.userTitleTextView.setText("经  理 ID:" + tmp.getUserid());
             holder.userImageView.setImageResource(R.drawable.admin);
             holder.userNameTextView.setTextColor(Color.BLACK);
+            holder.userNameTextView.setText(tmp.getName() + "手势："
+                    + tmp.getFigure());
         }
         return convertView;
     }

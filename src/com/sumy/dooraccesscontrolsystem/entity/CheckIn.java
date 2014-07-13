@@ -7,10 +7,12 @@ package com.sumy.dooraccesscontrolsystem.entity;
  * 
  */
 public class CheckIn {
+    private int id;
     private String name;
     private String date;
 
     public CheckIn(String name, String date) {
+        this.id = 0;
         this.name = name;
         this.date = date;
     }
@@ -33,7 +35,15 @@ public class CheckIn {
 
     @Override
     public String toString() {
-        return "name:" + name + " time=[" + date + "]";
+        return "id:" + id + " name:" + name + " time=[" + date + "]";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

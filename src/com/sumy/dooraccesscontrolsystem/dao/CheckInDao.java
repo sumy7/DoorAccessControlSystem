@@ -57,14 +57,26 @@ public class CheckInDao {
                 null);
         // 通过游标读出所有数据保存到列表中
         while (cursor.moveToNext()) {
-            checkinlist.add(new CheckIn(cursor.getString(1), cursor
-                    .getString(2)));
+            CheckIn checkin = new CheckIn(cursor.getString(1),
+                    cursor.getString(2));
+            checkin.setId(cursor.getInt(0));
+            checkinlist.add(checkin);
+
         }
         return checkinlist;
     }
 
+    /**
+     * 根据 ID 来删除条目
+     * 
+     * @param id
+     *            要删除的ID
+     * @return 删除的条目数
+     */
     public int delete(int id) {
-        // TODO 根据ID号删除条目
-        return 0;
+        SQLiteDatabase database = helper.getWritableDatabase();
+        String[] args = { Integer.toString(id) };
+        int cnt = database.delete("checkin", "id =?", args);
+        return cnt;
     }
 }

@@ -29,6 +29,7 @@ import android.widget.ListView;
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.EmployeeAdapter;
 import com.sumy.dooraccesscontrolsystem.entity.Employee;
+import com.sumy.dooraccesscontrolsystem.entity.Manager;
 import com.sumy.dooraccesscontrolsystem.entity.User;
 
 /**
@@ -125,6 +126,9 @@ public class InputEmployeeActivity extends BaseActivity implements
                         menu.add(0, 1, Menu.NONE, "制卡");
                         menu.add(0, 0, Menu.NONE, "删除");
                     }
+                }
+                if (user instanceof Manager) {
+                    menu.add(0, 0, Menu.NONE, "删除");
                 }
             }
         });

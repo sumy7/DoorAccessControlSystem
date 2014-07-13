@@ -89,10 +89,12 @@ public class AdminActivity extends BaseActivity {
                     break;
 
                 case 4:
-                    // 经理指纹录入
+                    // 经理手势录入
+                    startActivity(InputManagerActivity.class);
                     break;
                 case 5:
                     // 系统设置
+                    showToast("功能暂未实现");
                     break;
                 case 6:
                     // 管理员退出

@@ -1,6 +1,7 @@
 package com.sumy.dooraccesscontrolsystem.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.ListView;
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.EmployeeAdapter;
 import com.sumy.dooraccesscontrolsystem.entity.CheckIn;
+import com.sumy.dooraccesscontrolsystem.entity.Employee;
+import com.sumy.dooraccesscontrolsystem.entity.User;
 
 /**
  * 模拟雇员签到
@@ -27,6 +30,8 @@ public class EmployeeActivity extends BaseActivity {
     private Button btn_pic;
     private EditText et_name;
 
+    private ArrayList<User> employeelist;
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_input_empolyee;
@@ -34,6 +39,12 @@ public class EmployeeActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        employeelist = new ArrayList<User>();
+        for (User user : doorSystem.getUserlist()) {
+            if (user instanceof Employee) {
+                employeelist.add(user);
+            }
+        }
 
         listView = (ListView) findViewById(R.id.listViewEmpolyee);
         btn_photo = (Button) findViewById(R.id.buttonEmpolyeePhoto);
@@ -45,8 +56,7 @@ public class EmployeeActivity extends BaseActivity {
         et_name.setVisibility(View.GONE);
 
         EmployeeAdapter employeeAdapter = new EmployeeAdapter(this,
-                R.layout.activity_input_empolyee_listitem,
-                doorSystem.getUserlist());
+                R.layout.activity_input_empolyee_listitem, employeelist);
         listView.setAdapter(employeeAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
 
