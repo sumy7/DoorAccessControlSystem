@@ -37,6 +37,10 @@
         </activity>
         <activity android:name=".activity.InputEmployeeActivity" >
         </activity>
+        <activity android:name=".activity.EmployeeActivity" >
+        </activity>
+        <activity android:name=".activity.ShowCheckInActivity" >
+        </activity>
     </application>
 
 </manifest>

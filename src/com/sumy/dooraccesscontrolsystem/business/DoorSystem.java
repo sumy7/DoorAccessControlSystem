@@ -29,6 +29,8 @@ public class DoorSystem {
     private Door door; // 门
     private Ring ring; // 门铃
 
+    private int currentIDNumber = -1;
+
     private DoorSystem() {
         userlist = XMLTools.readXML(AUTOSAVE_PATH);
         if (userlist == null) {
@@ -38,6 +40,15 @@ public class DoorSystem {
         door = new Door();
         ring = new Ring();
 
+        // 遍历用户列表，存储最大的用户ID
+        int idnumber = 0;
+        for (User user : userlist) {
+            int userid = Integer.parseInt(user.getUserid());
+            if (userid > idnumber) {
+                idnumber = userid;
+            }
+        }
+        currentIDNumber = idnumber;
     }
 
     /**
@@ -78,6 +89,11 @@ public class DoorSystem {
 
     public void setUserlist(ArrayList<User> userlist) {
         this.userlist = userlist;
+    }
+
+    public int getNextUserNumber() {
+        currentIDNumber++;
+        return currentIDNumber;
     }
 
 }

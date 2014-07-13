@@ -1,4 +1,4 @@
-package com.sumy.dooraccesscontrolsystem.business;
+package com.sumy.dooraccesscontrolsystem.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

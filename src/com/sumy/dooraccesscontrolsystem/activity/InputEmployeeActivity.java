@@ -28,7 +28,6 @@ import android.widget.ListView;
 
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.EmployeeAdapter;
-import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
 import com.sumy.dooraccesscontrolsystem.entity.Employee;
 import com.sumy.dooraccesscontrolsystem.entity.User;
 
@@ -68,7 +67,7 @@ public class InputEmployeeActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
-        userlist = DoorSystem.getInstance().getUserlist();
+        userlist = doorSystem.getUserlist();
 
         listView = (ListView) findViewById(R.id.listViewEmpolyee);
         btn_photo = (Button) findViewById(R.id.buttonEmpolyeePhoto);
@@ -213,7 +212,7 @@ public class InputEmployeeActivity extends BaseActivity implements
         if (requestCode == EMPLOYEE_PHOTO_REQUEST_CODE
                 && resultCode == RESULT_OK) {
             // 创建新的雇员信息，存入DoorSystem中
-            employeeNum = "" + userlist.size();
+            employeeNum = "" + doorSystem.getNextUserNumber();
             Employee employee = new Employee(employeeNum, employeeName,
                     employeeCardID, employeePhoto, false);
             userlist.add(employee);
@@ -232,7 +231,7 @@ public class InputEmployeeActivity extends BaseActivity implements
                     .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             employeePhoto = cursor.getString(index);
-            employeeNum = "" + userlist.size();
+            employeeNum = "" + doorSystem.getNextUserNumber();
 
             Employee employee = new Employee(employeeNum, employeeName,
                     employeeCardID, employeePhoto, false);

@@ -1,11 +1,12 @@
 package com.sumy.dooraccesscontrolsystem.activity;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import android.R.color;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LayoutAnimationController;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 
 import com.sumy.dooraccesscontrolsystem.R;
 import com.sumy.dooraccesscontrolsystem.adapter.GridViewAdapter;
-import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
 import com.sumy.dooraccesscontrolsystem.business.Environment;
 import com.sumy.dooraccesscontrolsystem.entity.GridViewItem;
 
@@ -30,6 +30,7 @@ import com.sumy.dooraccesscontrolsystem.entity.GridViewItem;
 public class MainMenuActivity extends BaseActivity {
 
     private static int ADMIN_REQUEST_CODE = 233;
+    private static int EMPLOYEE_REQUEST_CODE = 233333;
     private GridView gridView;
     private ImageView imageView;
 
@@ -72,12 +73,14 @@ public class MainMenuActivity extends BaseActivity {
                 case 1:
                     // 雇员
                     showToast("雇员刷卡");
+                    startActivityForResult(EmployeeActivity.class,
+                            EMPLOYEE_REQUEST_CODE);
                     break;
                 case 2:
                     // 访客
                     showToast("访客门铃");
-                    DoorSystem.getInstance().getRing()
-                            .toRing(MainMenuActivity.this, R.raw.ring);
+                    doorSystem.getRing().toRing(MainMenuActivity.this,
+                            R.raw.ring);
                     break;
                 case 3:
                     // 经理
@@ -95,10 +98,44 @@ public class MainMenuActivity extends BaseActivity {
         animation.start();
     }
 
+    private static Boolean isGoingExit = false; // 当前是否正在退出
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 双击 back键 退出
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Timer tExit = null;
+            if (isGoingExit == false) {
+                isGoingExit = true; // 准备退出
+                showToast("再按一次退出");
+                tExit = new Timer();
+                tExit.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        isGoingExit = false; // 取消退出
+                    }
+                }, 2000); // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
+            } else {
+                finish();
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADMIN_REQUEST_CODE && resultCode == RESULT_OK) {
             doorSystem.getDoor().toOpen(imageView);
         }
+        if (requestCode == EMPLOYEE_REQUEST_CODE && resultCode == RESULT_OK) {
+            doorSystem.getDoor().toOpen(imageView);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 退出管理员登录
+        Environment.adminLogout();
     }
 }

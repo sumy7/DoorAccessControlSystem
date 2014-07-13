@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.sumy.dooraccesscontrolsystem.business.DoorSystem;
+import com.sumy.dooraccesscontrolsystem.dao.CheckInDao;
 
 /**
  * 所有 Activity 的基类，封装最常用的 Activity 的操作
@@ -24,10 +25,15 @@ public abstract class BaseActivity extends Activity {
     private Editor editor;
 
     protected DoorSystem doorSystem;
+    protected CheckInDao checkInDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        doorSystem = DoorSystem.getInstance();
+        checkInDao = new CheckInDao(this);
+
         setContentView(getLayoutResID());
         // 取得偏好设置管理器
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -41,8 +47,6 @@ public abstract class BaseActivity extends Activity {
         editor.putBoolean(KEY_ISFIRST, false);
         // 提交修改信息
         editor.commit();
-
-        doorSystem = DoorSystem.getInstance();
     }
 
     /**

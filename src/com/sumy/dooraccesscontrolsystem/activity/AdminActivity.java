@@ -69,8 +69,8 @@ public class AdminActivity extends BaseActivity {
                     // 备份文件
                     // 保存到XML文件中
                     Log.i("mytag", path);
-                    boolean result = XMLTools.writeXML(path, DoorSystem
-                            .getInstance().getUserlist());
+                    boolean result = XMLTools.writeXML(path,
+                            doorSystem.getUserlist());
                     if (result) {
                         showToast("备份成功");
                     } else {
@@ -81,7 +81,7 @@ public class AdminActivity extends BaseActivity {
                     // 恢复信息
                     ArrayList<User> list = XMLTools.readXML(path);
                     if (list != null) {
-                        DoorSystem.getInstance().setUserlist(list);
+                        doorSystem.setUserlist(list);
                         showToast("恢复成功");
                     } else {
                         showToast("恢复失败");
@@ -114,6 +114,7 @@ public class AdminActivity extends BaseActivity {
                     break;
                 case 7:
                     // 查看考勤信息
+                    startActivity(ShowCheckInActivity.class);
                     break;
                 }
             }
@@ -192,8 +193,7 @@ public class AdminActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 自动保存用户列表
-        XMLTools.writeXML(DoorSystem.AUTOSAVE_PATH, DoorSystem.getInstance()
-                .getUserlist());
+        XMLTools.writeXML(DoorSystem.AUTOSAVE_PATH, doorSystem.getUserlist());
     }
 
 }
