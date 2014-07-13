@@ -35,7 +35,7 @@ public class DoorSystem {
         userlist = XMLTools.readXML(AUTOSAVE_PATH);
         if (userlist == null) {
             userlist = new ArrayList<User>();
-            userlist.add(new Admin("0", "admin", "admin"));
+            userlist.add(new Admin("0", "admin", "123456"));
         }
         door = new Door();
         ring = new Ring();
