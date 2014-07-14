@@ -59,7 +59,7 @@ public class InputEmployeeActivity extends BaseActivity implements
     private String employeePhoto;
 
     // 临时变量存储要删除的位置
-    private int currentDeletePosition;
+    private int currentLongClickPosition;
 
     @Override
     protected int getLayoutResID() {
@@ -108,7 +108,7 @@ public class InputEmployeeActivity extends BaseActivity implements
      */
     protected void showOptionMenu(final int position) {
         // 标记当前长按的条目
-        currentDeletePosition = position;
+        currentLongClickPosition = position;
         // 显示listview的条目菜单监听器
         listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
@@ -143,7 +143,9 @@ public class InputEmployeeActivity extends BaseActivity implements
             break;
         case 1:
             // 制卡
-
+            Intent intent = new Intent(this, NFCInputActivity.class);
+            intent.putExtra("position", currentLongClickPosition);
+            startActivity(intent);
             break;
         }
         return super.onContextItemSelected(item);
@@ -159,13 +161,13 @@ public class InputEmployeeActivity extends BaseActivity implements
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        User user = userlist.get(currentDeletePosition);
+                        User user = userlist.get(currentLongClickPosition);
                         if (user instanceof Employee) {
                             // Employee employee = (Employee) user;
                             // 删除图片文件
                             // File photofile = new File(employee.getPhoto());
                             // photofile.delete();
-                            userlist.remove(currentDeletePosition);
+                            userlist.remove(currentLongClickPosition);
                         }
                         // 刷新列表
                         employeeAdapter.notifyDataSetChanged();
@@ -244,5 +246,12 @@ public class InputEmployeeActivity extends BaseActivity implements
             showToast("添加雇员成功");
             employeeAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        // 重绘界面
+        super.onResume();
+        employeeAdapter.notifyDataSetChanged();
     }
 }

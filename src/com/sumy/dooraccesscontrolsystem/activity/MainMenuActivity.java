@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.nfc.NfcAdapter;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -75,8 +76,17 @@ public class MainMenuActivity extends BaseActivity {
                 case 1:
                     // 雇员
                     showToast("雇员刷卡");
-                    startActivityForResult(EmployeeActivity.class,
-                            EMPLOYEE_REQUEST_CODE);
+                    NfcAdapter nfcadapter = NfcAdapter
+                            .getDefaultAdapter(MainMenuActivity.this);
+                    if (nfcadapter == null
+                            || (nfcadapter != null && !nfcadapter.isEnabled())) {
+                        showToast("设备不支持NFC或NFC功能未启用，使用手动签到");
+                        startActivityForResult(EmployeeActivity.class,
+                                EMPLOYEE_REQUEST_CODE);
+                    } else {
+                        startActivityForResult(EmployeeNFCEnterActivity.class,
+                                EMPLOYEE_REQUEST_CODE);
+                    }
                     break;
                 case 2:
                     // 访客

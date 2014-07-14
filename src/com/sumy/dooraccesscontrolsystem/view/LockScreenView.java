@@ -29,21 +29,21 @@ public class LockScreenView extends View {
     private int startY;
     private Paint linePaint;
     private Paint circlePaint;
-    private int viewWidth; // 鎺т欢鐨勫
-    private int viewHeight; // 鎺т欢鐨勯珮
+    private int viewWidth; // 控件的宽
+    private int viewHeight; // 控件的高
     private int radius;
 
     private Context context;
-    private PointF[][] centerCxCy; // 鍦嗗績鐭╅樀
-    private int[][] data; // 瀵嗙爜鏁版嵁鐭╅樀
-    private boolean[][] selected; // 宸查�鐭╅樀 閫変腑涔嬪悗涓嶈兘閲嶉�
-    private List<PointF> selPointList; // 閫変腑鐨勫渾涓偣闆嗗悎
+    private PointF[][] centerCxCy; // 圆心矩阵
+    private int[][] data; // 密码数据矩阵
+    private boolean[][] selected; // 已选矩阵 选中之后不能重选
+    private List<PointF> selPointList; // 选中的圆中点集合
 
     private boolean isPressedDown = false;
 
-    private String lockPin = ""; // 缁撴灉閿佸睆瀵嗙爜瀛楃涓�
+    private String lockPin = ""; // 结果锁屏密码字符串
 
-    private OnDrawLockPinFinishedListener listener = null;
+    private OnDrawLockPinFinishedListener listener = null; // 手势绘制完成监听器
 
     public LockScreenView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -66,15 +66,15 @@ public class LockScreenView extends View {
     private void init() {
         linePaint = new Paint();
         // linePaint.setColor(Color.rgb(255, 110, 2));
-        // linePaint.setStrokeWidth(15); //鐢荤瑪瀹藉害
-        linePaint.setStyle(Style.FILL); // 鐢荤瑪鏍峰紡
+        // linePaint.setStrokeWidth(15); //画笔宽度
+        linePaint.setStyle(Style.FILL); // 画笔样式
         linePaint.setAntiAlias(true);
 
         circlePaint = new Paint();
         // circlePaint.setColor(Color.rgb(155, 160, 170));
         circlePaint.setStrokeWidth(4);
         circlePaint.setAntiAlias(true);
-        circlePaint.setStyle(Style.STROKE); // 鐢荤瑪鏍峰紡绌哄績
+        circlePaint.setStyle(Style.STROKE); // 画笔样式空心
 
         centerCxCy = new PointF[3][3];
         data = new int[3][3];
@@ -83,7 +83,7 @@ public class LockScreenView extends View {
         initData();
     }
 
-    // 娓呴櫎閫変腑璁板綍
+    // 清除选中记录
     private void clearSelected() {
         for (int i = 0; i < selected.length; i++) {
             for (int j = 0; j < selected.length; j++) {
@@ -105,7 +105,7 @@ public class LockScreenView extends View {
         }
     }
 
-    // 鍒ゆ柇鏄惁鍦ㄦ煇涓渾鍐�
+    // 判断是否在某个圆内
     private boolean isInCircle(PointF p, int x, int y) {
         int distance = (int) Math.sqrt((p.x - x) * (p.x - x) + (p.y - y)
                 * (p.y - y));
@@ -118,37 +118,37 @@ public class LockScreenView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        linePaint.setStrokeWidth(2 * radius / 3 - 2); // 鐢荤瑪瀹藉害
+        linePaint.setStrokeWidth(2 * radius / 3 - 2); // 画笔宽度
 
-        // 鎵嬪娍寮�鍓嶇殑鐢诲渾
+        // 手势开始前的画圆
         for (int i = 0; i < selected[0].length; i++) {
             for (int j = 0; j < selected[0].length; j++) {
                 PointF center = centerCxCy[i][j];
-                if (selected[i][j]) { // 鏄惁閫変腑
-                    circlePaint.setColor(Color.rgb(255, 110, 2)); // 婊戝姩鍒板渾鍐呮椂璁剧疆榛勮壊鐢荤瑪
+                if (selected[i][j]) { // 是否选中
+                    circlePaint.setColor(Color.rgb(255, 110, 2)); // 滑动到圆内时设置黄色画笔
                     linePaint.setColor(Color.rgb(255, 110, 2));
-                    canvas.drawCircle(center.x, center.y, radius / 3, linePaint); // 閫変腑鏃剁殑瀹炲績鍐呭渾
+                    canvas.drawCircle(center.x, center.y, radius / 3, linePaint); // 选中时的实心内圆
                     linePaint.setColor(Color.argb(96, 255, 110, 2));
-                    canvas.drawCircle(center.x, center.y, radius, linePaint); // 閫変腑鏃剁殑澶栧渾鍗婇�鏄庡～鍏�
+                    canvas.drawCircle(center.x, center.y, radius, linePaint); // 选中时的外圆半透明填充
                 } else {
-                    circlePaint.setColor(Color.rgb(155, 160, 170)); // 鍚﹀垯璁剧疆鐏扮櫧鑹茬敾绗�
+                    circlePaint.setColor(Color.rgb(155, 160, 170)); // 否则设置灰白色画笔
                 }
-                canvas.drawCircle(center.x, center.y, radius, circlePaint); // 鐢诲鍦�
+                canvas.drawCircle(center.x, center.y, radius, circlePaint); // 画外圆
             }
         }
 
         linePaint.setColor(Color.argb(96, 255, 110, 2));
-        // 鐢荤嚎鏉¤矾寰�
+        // 画线条路径
         if (isPressedDown) {
-            for (int i = 0; i < selPointList.size() - 1; i++) { // 鐢诲凡閫変腑鍦嗕箣闂寸殑璺緞
-                PointF preCenter = selPointList.get(i); // 鍓嶄竴涓渾涓偣
-                PointF curCenter = selPointList.get(i + 1); // 鐜板湪鍦嗕腑鐐�
+            for (int i = 0; i < selPointList.size() - 1; i++) { // 画已选中圆之间的路径
+                PointF preCenter = selPointList.get(i); // 前一个圆中点
+                PointF curCenter = selPointList.get(i + 1);// 现在圆中点
                 canvas.drawLine(preCenter.x, preCenter.y, curCenter.x,
                         curCenter.y, linePaint);
             }
 
             if (selPointList.size() > 0) {
-                PointF center = selPointList.get(selPointList.size() - 1); // 鏈�悗涓�釜閫変腑鍦嗕腑鐐�
+                PointF center = selPointList.get(selPointList.size() - 1); // 最后一个选中圆中点
                 canvas.drawLine(center.x, center.y, endX, endY, linePaint);
             }
 
@@ -171,7 +171,7 @@ public class LockScreenView extends View {
         super.onLayout(changed, left, top, right, bottom);
     }
 
-    // 璁剧疆鍦嗙殑鍗婂緞鍜屽渾蹇�
+    // 设置圆的半径和圆心
     private void setRadius() {
         /**
          * | | | | | w | w | w | h |-----------------| | | | | | | | | h
@@ -198,7 +198,7 @@ public class LockScreenView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // 寰楀埌瑙︽懜鐐圭殑鍧愭爣
+        // 得到触摸点的坐标
         int pin = 0;
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
@@ -252,7 +252,7 @@ public class LockScreenView extends View {
         for (int i = 0; i < data[0].length; i++) {
             for (int j = 0; j < data[0].length; j++) {
                 PointF center = centerCxCy[i][j];
-                if (isInCircle(center, x, y)) { // 鍒ゆ柇鏄惁鍦ㄥ渾鍐�
+                if (isInCircle(center, x, y)) { // 判断是否在圆内
                     if (!selected[i][j]) {
                         selected[i][j] = true;
                         selPointList.add(center);
@@ -283,6 +283,12 @@ public class LockScreenView extends View {
         this.listener = listener;
     }
 
+    /**
+     * 内部监听器接口，当手势绘制完成时触发
+     * 
+     * @author sumy
+     * 
+     */
     public interface OnDrawLockPinFinishedListener {
         void onFinish(String lockPin);
     }

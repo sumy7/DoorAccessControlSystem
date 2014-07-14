@@ -65,7 +65,7 @@ public class EmployeeActivity extends BaseActivity {
                     int position, long id) {
                 // 获取点击项目信息
                 String name = doorSystem.getUserlist().get(position).getName();
-                String time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+                String time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E "))
                         .format(new Date());
                 // 存入数据库
                 CheckIn checkin = new CheckIn(name, time);
