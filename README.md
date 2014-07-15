@@ -89,8 +89,8 @@ DoorAccessControlSystem
 
 
 
-## [EmployeeNFCEnterActivity](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/NFCInputActivity.java) [EmployeeNFCEnterActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/EmployeeNFCEnterActivity.java)
-**判断设备是否支持 NFC**
+## [NFCInputActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/NFCInputActivity.java) [EmployeeNFCEnterActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/EmployeeNFCEnterActivity.java)
+**判断设备是否支持 NFC**  
 **NFC设置前台响应**  
 **NFC取消前台响应**  
 **NFC回调处理** `void onNewIntent(Intent)`  
@@ -150,8 +150,8 @@ DoorAccessControlSystem
 
 
 ## [InputManagerActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/InputManagerActivity.java)  [ManagerCheckInActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/ManagerCheckInActivity.java) [LockScreenView.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/view/LockScreenView.java)
-**锁屏手势** 使用的是老师提供的 View，自己添加了一个接口监听器 `OnDrawLockPinFinishedListene` 当手势绘制完成时自动调用。  
-**两次绘制手势的实现**  
+**锁屏手势** 使用老师提供的 View，添加了一个接口监听器 `OnDrawLockPinFinishedListene` 当手势绘制完成时自动回调。  
+**两次绘制手势的实现** 判断两次手势是否一致  
 
 
 ## [/adapter](https://github.com/sumy7/DoorAccessControlSystem/tree/master/src/com/sumy/dooraccesscontrolsystem/adapter)
@@ -184,7 +184,7 @@ DoorAccessControlSystem
 ### [CheckInDao.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/dao/CheckInDao.java)
 对数据库实现增删查，暂时没有修改数据的操作。  
 
-## [Ring](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/entity/Ring.java)
+## [Ring.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/entity/Ring.java)
 **播放音频**  
 
     MediaPlayer mediaplayer = MediaPlayer.create(context, resid);
