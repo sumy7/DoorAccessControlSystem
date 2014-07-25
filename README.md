@@ -63,7 +63,7 @@ DoorAccessControlSystem
 ## [MainMenuActivity.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/MainMenuActivity.java)
 **GridView** 网格布局的使用 *与 ViewPaper 大同小异，不再重复*  
 为 GridView 的每一项设置缩放动画 Animation  
-
+```java
     // LINE 106
     // 为 GridView 的每一项设置动画
     Animation animation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f);
@@ -71,7 +71,7 @@ DoorAccessControlSystem
     LayoutAnimationController controller = new LayoutAnimationController(animation);
     gridView.setLayoutAnimation(controller);
     animation.start();
-
+```
 --------
 
 **[双击 Back 退出](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/activity/MainMenuActivity.java#L118)**  
@@ -107,32 +107,32 @@ DoorAccessControlSystem
 --------
 
 **调用相机拍摄照片**
-
+```java
     // LINE 200
     // 创建隐式意图调用系统相机
     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     Uri uri = Uri.fromFile(tempFile);
     intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
     startActivityForResult(intent, REQUEST_CODE);
-
+```
 在 `void onActivityResult(int, int, Intent)` 中处理回调信息。
 
 --------
 
 **调用图库选择照片**
-
+```java
     // LINE 207
     // 创建意图启动图库
     intent = new Intent(Intent.ACTION_GET_CONTENT);
     intent.setType("image/*");
     startActivityForResult(Intent.createChooser(intent, "选择一张图片"),REQUEST_CODE);
-
+```
 在 `void onActivityResult(int, int, Intent)` 中处理回调信息。被选中照片的 Uri 可以通过 `Intent.getDate()` 获得。  
 
 --------
 
 **将 Uri 转换成存储路径**
-
+```java
     // LINE 231
     Uri originalUri = data.getData();// 得到图片的URI
     String[] imgs = { MediaStore.Images.Media.DATA };// 将图片URI转换成存储路径
@@ -140,7 +140,7 @@ DoorAccessControlSystem
     int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
     cursor.moveToFirst();
     photoPath = cursor.getString(index);
-
+```
 代码中的一个方法以被弃用，所以可能有更好的方法代替。  
 
 --------
@@ -161,10 +161,10 @@ DoorAccessControlSystem
 ### [GridViewAdapter.java](https://github.com/sumy7/DoorAccessControlSystem/blob/6a3e03a43952d9d99bef164b36b657adf738576c/src/com/sumy/dooraccesscontrolsystem/adapter/GridViewAdapter.java)
 **设置字体**  
 字体文件需放在 `assets` 目录下  
-
+```java
     Typeface tf = Typeface.createFromAsset(mContext.getAssets(), "fonts/wryh.ttf");
     textView.setTypeface(tf);
-
+```
 
 ## [DoorSystem.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/business/DoorSystem.java#L73)
 **接口回调的方式实现个性化操作**  
@@ -186,10 +186,10 @@ DoorAccessControlSystem
 
 ## [Ring.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/entity/Ring.java)
 **播放音频**  
-
+```java
     MediaPlayer mediaplayer = MediaPlayer.create(context, resid);
     mediaplayer.start();
-
+```
 
 ## [ImageTools.java](https://github.com/sumy7/DoorAccessControlSystem/blob/master/src/com/sumy/dooraccesscontrolsystem/utils/ImageTools.java)
 通过路径获取图片信息，首先解析图片获取图片的宽和高，然后计算缩放比例，使图片能被放置到提供的宽和高中，最后根据缩放比例读取图片。  
